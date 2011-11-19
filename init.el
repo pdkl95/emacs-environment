@@ -33,6 +33,10 @@
 
 ;;; Code:
 
+(require 'cl)
+(defvar *emacs-init-start-time* (current-time))
+(message ">>> *** STARTING EMACS INIT (with prelude) ***")
+
 (defgroup prelude nil
   "Emacs Prelude"
   :group 'convenience)
@@ -59,34 +63,57 @@ by Prelude.")
 (add-to-list 'load-path prelude-vendor-dir)
 (add-to-list 'load-path prelude-personal-dir)
 
-;; config changes made through the customize UI will be store here
-(setq custom-file (concat prelude-personal-dir "custom.el"))
-(load custom-file 'noerror)
+(defconst personal-init-file (concat prelude-personal-dir "init.el"))
+(defconst custom-file (concat prelude-personal-dir "custom.el"))
+
+(defun pdkl-require (feature)
+  "Same as require, but with some debug output"
+  (condition-case err
+      (progn
+        (message  ">>> LOAD: %s" feature)
+        (if (stringp feature)
+            (load-library feature)
+          (require feature))
+        (message (format ">>> LOAD: %s <success>" feature)))
+    ('error (message (format ">>> *** FAILURE IN LOAD: %s ***" feature)))
+    nil))
+
+(message ">>> customizer settings: %s" custom-file)
+(load custom-file)
 
 ;; the core stuff
-(require 'prelude-ui)
-(require 'prelude-packages)
-(require 'prelude-core)
-(require 'prelude-editor)
-(require 'prelude-global-keybindings)
+(pdkl-require 'prelude-ui)
+(pdkl-require 'prelude-packages)
+(pdkl-require 'prelude-core)
+(pdkl-require 'prelude-editor)
+(pdkl-require 'prelude-global-keybindings)
 
 ;; programming & markup languages support
-(require 'prelude-c)
-(require 'prelude-clojure)
-(require 'prelude-coffee)
-(require 'prelude-common-lisp)
-(require 'prelude-emacs-lisp)
-(require 'prelude-haskell)
-(require 'prelude-js)
-(require 'prelude-latex)
-(require 'prelude-markdown)
-(require 'prelude-perl)
-(require 'prelude-ruby)
-(require 'prelude-scheme)
-(require 'prelude-xml)
+(pdkl-require 'prelude-c)
+(pdkl-require 'prelude-clojure)
+(pdkl-require 'prelude-coffee)
+(pdkl-require 'prelude-common-lisp)
+(pdkl-require 'prelude-emacs-lisp)
+(pdkl-require 'prelude-haskell)
+(pdkl-require 'prelude-js)
+(pdkl-require 'prelude-latex)
+(pdkl-require 'prelude-markdown)
+(pdkl-require 'prelude-perl)
+(pdkl-require 'prelude-ruby)
+(pdkl-require 'prelude-scheme)
+(pdkl-require 'prelude-xml)
 
 ;; load the personal settings
 (when (file-exists-p prelude-personal-dir)
-  (mapc 'load (directory-files prelude-personal-dir nil "^[^#].*el$")))
+  ;;(mapc 'load (directory-files prelude-personal-dir nil "^[^#].*el$"))
+  (load personal-init-file))
 
+(defvar *emacs-init-end-time* (current-time))
+(message ">>> init.el -  START: %s" (current-time-string *emacs-init-start-time*))
+(message ">>> init.el - FINISH: %s" (current-time-string *emacs-init-end-time*))
+(message ">>> init.el - seconds elapsed: %ds"
+         (destructuring-bind (hi lo ms) *emacs-init-end-time*
+           (- (+ hi lo)
+              (+ (first *emacs-init-start-time*)
+                 (second *emacs-init-start-time*)))))
 ;;; init.el ends here
