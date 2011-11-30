@@ -4,7 +4,7 @@
 
 
 ;;;### (autoloads (flymake-less-css-init less-css-mode less-css-compile)
-;;;;;;  "less-css-mode" "less-css-mode.el" (20167 9093))
+;;;;;;  "less-css-mode" "less-css-mode.el" (20182 40634))
 ;;; Generated autoloads from less-css-mode.el
 
 (autoload 'less-css-compile "less-css-mode" "\
@@ -28,7 +28,7 @@ Flymake support for LESS files
 
 ;;;***
 
-;;;### (autoloads nil nil ("less-css-mode-pkg.el") (20167 9094 2523))
+;;;### (autoloads nil nil ("less-css-mode-pkg.el") (20182 40634 777378))
 
 ;;;***
 

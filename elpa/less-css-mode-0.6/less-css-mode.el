@@ -6,7 +6,7 @@
 ;; Author: Steve Purcell <steve@sanityinc.com>
 ;; URL: https://github.com/purcell/less-css-mode
 ;; Keywords: less css mode
-;; Version: 0.5
+;; Version: 0.6
 ;;
 ;; This program is free software; you can redistribute it and/or
 ;; modify it under the terms of the GNU General Public License as
@@ -142,10 +142,11 @@ default.")
 ;; Minor mode
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-;; TODO: '&', interpolation, escaped values (~"..."), JS eval (~`...`), custom faces
+;; TODO: interpolation ("@{val}"), escaped values (~"..."), JS eval (~`...`), custom faces
 (defconst less-css-font-lock-keywords
   '(;; Variables
     ("@[a-z_-][a-z-_0-9]*" . font-lock-constant-face)
+    ("&" . font-lock-preprocessor-face)
     ;; Mixins
     ("\\(?:[ \t{;]\\|^\\)\\(\\.[a-z_-][a-z-_0-9]*\\)[ \t]*;" . (1 font-lock-keyword-face)))
   )
@@ -159,6 +160,8 @@ Special commands:
   ;; cpp-style comments
   (modify-syntax-entry ?/ "< 124b" less-css-mode-syntax-table)
   (modify-syntax-entry ?\n "> b" less-css-mode-syntax-table)
+  (set (make-local-variable 'comment-start) "//")
+  (set (make-local-variable 'comment-end) "")
 
   (add-hook 'after-save-hook 'less-css-compile-maybe nil t))
 
