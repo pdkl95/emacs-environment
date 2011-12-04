@@ -10,6 +10,15 @@
   (prelude-turn-on-abbrev)
   (prelude-add-watchwords))
 
+(defun pdkl-coffee-mode-hook ()
+  "personal overrides for coffee-mode"
+
+  (electric-indent-mode -1)
+  ;; newline-and-indent gets it wrong here
+  ;;(define-key coffee-mode-map "\C-m" 'newline)
+  )
+(add-hook 'coffee-mode-hook 'pdkl-coffee-mode-hook)
+
 ;; Original idea from
 ;; http://www.opensubscriber.com/message/emacs-devel@gnu.org/10971693.html
 (defun comment-dwim-line (&optional arg)

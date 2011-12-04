@@ -5,6 +5,7 @@
  ;; If there is more than one, they won't work right.
  '(adaptive-fill-mode nil)
  '(blink-cursor-mode nil)
+ '(coffee-tab-width 2)
  '(column-number-mode t)
  '(completions-format (quote vertical))
  '(custom-safe-themes (quote ("5f573dfd6ef8f90d0c33de7d482daba81399f276" default)))
@@ -28,6 +29,8 @@
  '(read-file-name-completion-ignore-case t)
  '(require-final-newline t)
  '(ruby-block-highlight-toggle t)
+ '(scroll-bar-mode (quote right))
+ '(scss-compile-at-save nil)
  '(show-paren-mode t)
  '(show-paren-style (quote parenthesis))
  '(size-indication-mode t)
