@@ -2,6 +2,11 @@
 
 (menu-bar-mode)
 
+(add-hook 'sh-mode-hook
+  '(lambda () (and buffer-file-name
+   (string-match "\\.sh\\'" buffer-file-name)
+     (sh-set-shell "bash"))))
+
 (defun prelude-coding-hook ()
   "Default coding hook, useful with any programming language. (overridden)"
   ;;(flyspell-prog-mode)
