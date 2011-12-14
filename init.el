@@ -66,6 +66,14 @@ by Prelude.")
 (defconst personal-init-file (concat prelude-personal-dir "init.el"))
 (defconst custom-file (concat prelude-personal-dir "custom.el"))
 
+(defun xxpdkl-require (feature)
+      (progn
+        (message  ">>> LOAD: %s" feature)
+        (if (stringp feature)
+            (load-library feature)
+          (require feature))
+        (message (format ">>> LOAD: %s <success>" feature)))
+)
 (defun pdkl-require (feature)
   "Same as require, but with some debug output"
   (condition-case err
