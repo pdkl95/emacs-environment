@@ -33,9 +33,7 @@
 
 ;;; Code:
 
-(defgroup prelude nil
-  "Emacs Prelude"
-  :group 'convenience)
+(message "%s" "Emacs Prelude is powering up. Be patient, Master.")
 
 ;; On OS X Emacs doesn't use the shell PATH if it's not started from
 ;; the shell. If you're using homebrew modifying the PATH is essential.
@@ -61,32 +59,39 @@ by Prelude.")
 
 ;; config changes made through the customize UI will be store here
 (setq custom-file (concat prelude-personal-dir "custom.el"))
-(load custom-file 'noerror)
 
 ;; the core stuff
-(require 'prelude-ui)
 (require 'prelude-packages)
+(require 'prelude-el-get)
+(require 'prelude-ui)
 (require 'prelude-core)
 (require 'prelude-editor)
 (require 'prelude-global-keybindings)
 
 ;; programming & markup languages support
+(require 'prelude-programming)
 (require 'prelude-c)
 (require 'prelude-clojure)
 (require 'prelude-coffee)
 (require 'prelude-common-lisp)
 (require 'prelude-emacs-lisp)
+(require 'prelude-erc)
+(require 'prelude-groovy)
 (require 'prelude-haskell)
 (require 'prelude-js)
 (require 'prelude-latex)
 (require 'prelude-markdown)
+(require 'prelude-org)
 (require 'prelude-perl)
+(require 'prelude-python)
 (require 'prelude-ruby)
 (require 'prelude-scheme)
 (require 'prelude-xml)
 
-;; load the personal settings
+;; load the personal settings (this includes `custom-file')
 (when (file-exists-p prelude-personal-dir)
   (mapc 'load (directory-files prelude-personal-dir nil "^[^#].*el$")))
+
+(message "%s" "Emacs Prelude is ready to do thy bidding, Master!")
 
 ;;; init.el ends here
