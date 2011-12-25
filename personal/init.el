@@ -2,6 +2,25 @@
 
 (menu-bar-mode)
 
+(smex-initialize)
+
+(global-set-key (kbd "M-x") 'smex)
+(global-set-key (kbd "M-X") 'smex-major-mode-commands)
+
+(global-set-key (kbd "C-x C-k")   'kill-some-buffers)
+(global-set-key (kbd "C-x C-M-k") 'kill-matching-buffers)
+
+;; This is your old M-x.
+(global-set-key (kbd "C-c C-c M-x") 'execute-extended-command)
+
+;; C-+ is normally set to increase the font size, which is
+;; something I /always/ keep constant. So After one to many
+;; stupid failures related t that it's geting rebound to another
+;; 'undo key, which is usually what I wnted to do with with C-_
+;; when I mistype and hit this atything
+(global-set-key (kbd "C-+") 'undo)
+
+;;
 (add-hook 'sh-mode-hook
   '(lambda () (and buffer-file-name
    (string-match "\\.sh\\'" buffer-file-name)
