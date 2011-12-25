@@ -37,10 +37,6 @@
 (defvar *emacs-init-start-time* (current-time))
 (message ">>> *** STARTING EMACS INIT (with prelude) ***")
 
-(defgroup prelude nil
-  "Emacs Prelude"
-  :group 'convenience)
-
 ;; On OS X Emacs doesn't use the shell PATH if it's not started from
 ;; the shell. If you're using homebrew modifying the PATH is essential.
 (if (eq system-type 'darwin)
@@ -90,23 +86,29 @@ by Prelude.")
 (load custom-file)
 
 ;; the core stuff
-(pdkl-require 'prelude-ui)
 (pdkl-require 'prelude-packages)
+(pdkl-require 'prelude-el-get)
+(pdkl-require 'prelude-ui)
 (pdkl-require 'prelude-core)
 (pdkl-require 'prelude-editor)
 (pdkl-require 'prelude-global-keybindings)
 
 ;; programming & markup languages support
+(pdkl-require 'prelude-programming)
 (pdkl-require 'prelude-c)
 (pdkl-require 'prelude-clojure)
 (pdkl-require 'prelude-coffee)
 (pdkl-require 'prelude-common-lisp)
 (pdkl-require 'prelude-emacs-lisp)
+(pdkl-require 'prelude-erc)
+(pdkl-require 'prelude-groovy)
 (pdkl-require 'prelude-haskell)
 (pdkl-require 'prelude-js)
 (pdkl-require 'prelude-latex)
 (pdkl-require 'prelude-markdown)
+(pdkl-require 'prelude-org)
 (pdkl-require 'prelude-perl)
+(pdkl-require 'prelude-python)
 (pdkl-require 'prelude-ruby)
 (pdkl-require 'prelude-scheme)
 (pdkl-require 'prelude-xml)

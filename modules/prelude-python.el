@@ -1,4 +1,4 @@
-;;; prelude-clojure.el --- Emacs Prelude: Clojure programming configuration.
+;;; prelude-python.el --- Emacs Prelude: python.el configuration.
 ;;
 ;; Copyright (c) 2011 Bozhidar Batsov
 ;;
@@ -11,7 +11,8 @@
 
 ;;; Commentary:
 
-;; Some basic configuration for clojure-mode.
+;; Some basic configuration for python.el (the latest and greatest
+;; Python mode Emacs has to offer).
 
 ;;; License:
 
@@ -32,18 +33,14 @@
 
 ;;; Code:
 
-(require 'prelude-lisp)
+(require 'python)
 
-;; To start SLIME in your Clojure project:
-;; 1. lein plugin install swank-clojure 1.3.1
-;; 2. Invoke M-x clojure-jack-in from a project
-(require 'clojure-mode)
+(defun prelude-python-mode-hook ()
+  (prelude-prog-mode-hook)
+  (electric-indent-mode -1))
 
-(defun prelude-clojure-mode-hook ()
-  (prelude-lisp-coding-hook))
+(add-hook 'python-mode-hook 'prelude-python-mode-hook)
 
-(add-hook 'clojure-mode-hook 'prelude-clojure-mode-hook)
+(provide 'prelude-python)
 
-(provide 'prelude-clojure)
-
-;;; prelude-clojure.el ends here
+;;; prelude-python.el ends here

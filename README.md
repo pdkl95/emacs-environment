@@ -153,6 +153,10 @@ The following list will be expanded greatly in the future.
     git clone git://github.com/bbatsov/emacs-prelude.git path/to/local/repo
     ln -s path/to/local/repo ~/.emacs.d
 
+You might have to install the `make` and `makeinfo` packages if you
+don't have them already, since the build of some packages obtained via
+`el-get` might require them.
+
 ## Running
 
 Nothing fancy here. Just start Emacs as usual. Personally I run Emacs
@@ -176,7 +180,7 @@ automatically be Prelude on startup.
 Avoid modifying the Prelude config itself - this will make it hard for
 you to receive automatic updates in the future.
 
-## Caveats & Pitfall
+## Caveats & Pitfalls
 
 ### No arrow navigation in editor buffers
 
@@ -188,7 +192,7 @@ use them.
 
 ### What is this terrible default theme?
 
-It's called Zenburn and I (and lots of hackers around) the world find it
+It's called Zenburn and I (and lots of hackers around the world) find it
 pretty neat (I also happen to be the maintainer of its Emacs port). I
 find the default theme pretty tiresome for the eyes, that's why I took
 that "controversial" decision to replace it. You can, of course,
