@@ -1,8 +1,19 @@
 (load-theme 'pdklburn t)
 
 (menu-bar-mode)
-
+(ido-yes-or-no-mode)
 (smex-initialize)
+(global-rainbow-delimiters-mode)
+
+(require 'pretty-lambdada)
+(pretty-lambda-for-modes)
+
+;; stupid must-have-my-way-only attitude in Prelude,
+;; at leat for the arrow keys
+(global-set-key (kbd "<up>") 'previous-line)
+(global-set-key (kbd "<down>") 'next-line)
+(global-set-key (kbd "<left>") 'left-char)
+(global-set-key (kbd "<right>") 'right-char)
 
 (global-set-key (kbd "M-x") 'smex)
 (global-set-key (kbd "M-X") 'smex-major-mode-commands)
@@ -19,6 +30,19 @@
 ;; 'undo key, which is usually what I wnted to do with with C-_
 ;; when I mistype and hit this atything
 (global-set-key (kbd "C-+") 'undo)
+
+;;(require 'drag-stuff)
+;;(drag-stuff-global-mode t)
+;;(add-to-list 'drag-stuff-except-modes 'conflicting-mode)
+;;(setq drag-stuff-modifier '(meta shift))
+;;(setq drag-stuff-modifier '(control))
+
+
+;;(require 'flymake-shell)
+;;(add-hook 'sh-set-shell-hook 'flymake-shell-load)
+;;(require 'flymake-sass)
+;;(add-hook 'sass-shell-hook 'flymake-sass-load)
+;;(add-hook 'coffee-mode-hook 'flymake-coffee-load)
 
 ;; try and set sh-mode's subtype to bash by default
 (add-hook 'sh-mode-hook
@@ -57,7 +81,7 @@
           (if (and (not (region-active-p)) (not (looking-at "[ \t]*$")))
               (comment-or-uncomment-region (line-beginning-position) (line-end-position))
             (comment-dwim arg)))
-
+2
 (global-set-key "\M-;" 'comment-dwim-line)
 
 (global-set-key "\C-cy" '(lambda ()
