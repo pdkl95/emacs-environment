@@ -11,4 +11,4 @@ url
 session.*
 personal/*.el
 unsupported
-
+.smex*
