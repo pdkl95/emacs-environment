@@ -7,7 +7,7 @@
  '(blink-cursor-mode nil)
  '(clean-buffer-list-delay-general 2)
  '(coffee-tab-width 2)
- '(column-number-mode t)
+ '(column-number-mode nil)
  '(completions-format (quote vertical))
  '(custom-safe-themes (quote ("5f573dfd6ef8f90d0c33de7d482daba81399f276" default)))
  '(delete-active-region (quote kill))
@@ -53,4 +53,14 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(default ((t (:inherit nil :stipple nil :background "#0b0b0b" :foreground "#92b6f4" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 87 :width normal :foundry "xos4" :family "Terminus")))))
+ '(default ((t (:inherit nil :stipple nil :background "#0b0b0b" :foreground "#92b6f4" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 87 :width normal :foundry "xos4" :family "Terminus"))))
+ '(rainbow-delimiters-depth-1-face ((t (:foreground "deep sky blue"))))
+ '(rainbow-delimiters-depth-2-face ((t (:foreground "light slate blue"))))
+ '(rainbow-delimiters-depth-3-face ((t (:foreground "dodger blue"))))
+ '(rainbow-delimiters-depth-4-face ((t (:foreground "medium spring green"))))
+ '(rainbow-delimiters-depth-5-face ((t (:foreground "green yellow"))))
+ '(rainbow-delimiters-depth-6-face ((t (:foreground "DarkGoldenrod2"))))
+ '(rainbow-delimiters-depth-7-face ((t (:foreground "firebrick2"))))
+ '(rainbow-delimiters-depth-8-face ((t (:foreground "magenta2"))))
+ '(rainbow-delimiters-depth-9-face ((t (:foreground "DeepSkyBlue2"))))
+ '(rainbow-delimiters-unmatched-face ((t (:background "firebrick2" :foreground "light yellow")))))
