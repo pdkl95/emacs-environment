@@ -20,19 +20,20 @@
 ;; when I mistype and hit this atything
 (global-set-key (kbd "C-+") 'undo)
 
-;;
+;; try and set sh-mode's subtype to bash by default
 (add-hook 'sh-mode-hook
   '(lambda () (and buffer-file-name
    (string-match "\\.sh\\'" buffer-file-name)
      (sh-set-shell "bash"))))
 
-(defun prelude-coding-hook ()
+(defun prelude-prog-mode-hook ()
   "Default coding hook, useful with any programming language. (overridden)"
   ;;(flyspell-prog-mode)
   ;;(prelude-local-comment-auto-fill)
   (prelude-turn-on-whitespace)
   (prelude-turn-on-abbrev)
-  (prelude-add-watchwords))
+  (prelude-add-watchwords)
+  (add-hook 'before-save-hook 'whitespace-cleanup nil t))
 
 (defun pdkl-coffee-mode-hook ()
   "personal overrides for coffee-mode"
