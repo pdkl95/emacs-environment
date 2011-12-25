@@ -32,23 +32,11 @@
 
 ;;; Code:
 
-;; customize
-(defgroup javascript nil
-  "Emacs Prelude JavaScript programming support"
-  :group 'prelude)
-
-(defcustom prelude-enable-js-hook t
-  "Enable Prelude's default JavaScript hook."
-  :type 'boolean
-  :group 'javascript)
-
-(defun prelude-js-coding-hook ()
-  (prelude-coding-hook)
+(defun prelude-js-mode-hook ()
   ;; electric-layout-mode doesn't play nice with js-mode
   (electric-layout-mode -1))
 
-(when prelude-enable-js-hook
-  (add-hook 'js-mode-hook 'prelude-js-coding-hook))
+(add-hook 'js-mode-hook 'prelude-js-mode-hook)
 
 (provide 'prelude-js)
 

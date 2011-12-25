@@ -34,12 +34,6 @@
 
 (require 'cl)
 (require 'thingatpt)
-(require 'imenu)
-
-;; customization
-(defgroup core nil
-  "Emacs Prelude core"
-  :group 'prelude)
 
 (defun prelude-add-subfolders-to-load-path (parent-dir)
   "Adds all first level `parent-dir' subdirs to the
@@ -249,62 +243,10 @@ there's a region, all lines that region covers will be duplicated."
     (cond ((search-forward "<?xml" nil t) (xml-mode))
           ((search-forward "<html" nil t) (html-mode)))))
 
-(defun prelude-ido-goto-symbol (&optional symbol-list)
-  "Refresh imenu and jump to a place in the buffer using Ido."
-  (interactive)
-  (unless (featurep 'imenu)
-    (require 'imenu nil t))
-  (cond
-   ((not symbol-list)
-    (let ((ido-mode ido-mode)
-          (ido-enable-flex-matching
-           (if (boundp 'ido-enable-flex-matching)
-               ido-enable-flex-matching t))
-          name-and-pos symbol-names position)
-      (unless ido-mode
-        (ido-mode 1)
-        (setq ido-enable-flex-matching t))
-      (while (progn
-               (imenu--cleanup)
-               (setq imenu--index-alist nil)
-               (prelude-ido-goto-symbol (imenu--make-index-alist))
-               (setq selected-symbol
-                     (ido-completing-read "Symbol? " symbol-names))
-               (string= (car imenu--rescan-item) selected-symbol)))
-      (unless (and (boundp 'mark-active) mark-active)
-        (push-mark nil t nil))
-      (setq position (cdr (assoc selected-symbol name-and-pos)))
-      (cond
-       ((overlayp position)
-        (goto-char (overlay-start position)))
-       (t
-        (goto-char position)))))
-   ((listp symbol-list)
-    (dolist (symbol symbol-list)
-      (let (name position)
-        (cond
-         ((and (listp symbol) (imenu--subalist-p symbol))
-          (prelude-ido-goto-symbol symbol))
-         ((listp symbol)
-          (setq name (car symbol))
-          (setq position (cdr symbol)))
-         ((stringp symbol)
-          (setq name symbol)
-          (setq position
-                (get-text-property 1 'org-imenu-marker symbol))))
-        (unless (or (null position) (null name)
-                    (string= (car imenu--rescan-item) name))
-          (add-to-list 'symbol-names name)
-          (add-to-list 'name-and-pos (cons name position))))))))
-
 ;; We have a number of turn-on-* functions since it's advised that lambda
 ;; functions not go in hooks. Repeatedly evaluating an add-to-list with a
 ;; hook value will repeatedly add it since there's no way to ensure
 ;; that a lambda doesn't already exist in the list.
-
-(defun prelude-local-comment-auto-fill ()
-  (set (make-local-variable 'comment-auto-fill-only-comments) t)
-  (auto-fill-mode t))
 
 (defun prelude-turn-on-whitespace ()
   (whitespace-mode +1))
@@ -318,19 +260,6 @@ there's a region, all lines that region covers will be duplicated."
 (defun prelude-turn-off-abbrev ()
   (abbrev-mode -1))
 
-(defun prelude-add-watchwords ()
-  (font-lock-add-keywords
-   nil '(("\\<\\(FIX\\|TODO\\|FIXME\\|HACK\\|REFACTOR\\):"
-          1 font-lock-warning-face t))))
-
-(defun prelude-coding-hook ()
-  "Default coding hook, useful with any programming language."
-  (flyspell-prog-mode)
-  (prelude-local-comment-auto-fill)
-  (prelude-turn-on-whitespace)
-  (prelude-turn-on-abbrev)
-  (prelude-add-watchwords))
-
 (defun prelude-untabify-buffer ()
   (interactive)
   (untabify (point-min) (point-max)))
@@ -340,7 +269,7 @@ there's a region, all lines that region covers will be duplicated."
   (interactive)
   (prelude-indent-buffer)
   (prelude-untabify-buffer)
-  (delete-trailing-whitespace))
+  (whitespace-cleanup))
 
 (defun prelude-eval-and-replace ()
   "Replace the preceding sexp with its value."

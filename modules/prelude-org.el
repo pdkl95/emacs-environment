@@ -1,4 +1,4 @@
-;;; prelude-clojure.el --- Emacs Prelude: Clojure programming configuration.
+;;; prelude-org.el --- Emacs Prelude: org-mode configuration.
 ;;
 ;; Copyright (c) 2011 Bozhidar Batsov
 ;;
@@ -11,7 +11,7 @@
 
 ;;; Commentary:
 
-;; Some basic configuration for clojure-mode.
+;; Some basic configuration for org-mode.
 
 ;;; License:
 
@@ -32,18 +32,17 @@
 
 ;;; Code:
 
-(require 'prelude-lisp)
+(add-to-list 'auto-mode-alist '("\\.org\\’" . org-mode))
+(global-set-key "\C-cl" 'org-store-link)
+(global-set-key "\C-ca" 'org-agenda)
+(global-set-key "\C-cb" 'org-iswitchb)
+(setq org-log-done t)
 
-;; To start SLIME in your Clojure project:
-;; 1. lein plugin install swank-clojure 1.3.1
-;; 2. Invoke M-x clojure-jack-in from a project
-(require 'clojure-mode)
+(defun prelude-org-mode-hook ()
+  (electric-indent-mode -1))
 
-(defun prelude-clojure-mode-hook ()
-  (prelude-lisp-coding-hook))
+(add-hook 'org-mode-hook 'prelude-org-mode-hook)
 
-(add-hook 'clojure-mode-hook 'prelude-clojure-mode-hook)
+(provide 'prelude-org)
 
-(provide 'prelude-clojure)
-
-;;; prelude-clojure.el ends here
+;;; prelude-org.el ends here

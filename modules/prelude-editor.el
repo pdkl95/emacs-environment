@@ -166,12 +166,8 @@
 (add-hook 'text-mode-hook 'turn-on-auto-fill)
 
 ;; load yasnippet
-(require 'yasnippet) ;; not yasnippet-bundle
+(require 'yasnippet)
 (yas/initialize)
-
-;; dispense of trailing whitespace once and for all
-(add-hook 'before-save-hook
-          'delete-trailing-whitespace)
 
 ;; projectile is a project management mode
 (require 'projectile)

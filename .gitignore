@@ -1,9 +1,14 @@
-unsorted
-*~
+q*~
 auto-save-list
 recentf
 savehist
 saveplace
+elpa
+el-get
 semanticdb
+custom.el
 url
 session.*
+personal/*.el
+unsupported
+
