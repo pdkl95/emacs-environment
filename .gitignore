@@ -1,4 +1,4 @@
-*~
+q*~
 auto-save-list
 recentf
 savehist
@@ -8,3 +8,5 @@ semanticdb
 custom.el
 url
 personal/*.el
+unsupported
+
