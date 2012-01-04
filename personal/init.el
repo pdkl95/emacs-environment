@@ -68,6 +68,10 @@
   )
 (add-hook 'coffee-mode-hook 'pdkl-coffee-mode-hook)
 
+(add-hook 'haml-mode-hook
+                  '(lambda ()
+                         (setq indent-tabs-mode nil)
+                         (define-key haml-mode-map "\C-m" 'newline-and-indent)))
 ;; Original idea from
 ;; http://www.opensubscriber.com/message/emacs-devel@gnu.org/10971693.html
 (defun comment-dwim-line (&optional arg)
@@ -81,7 +85,7 @@
           (if (and (not (region-active-p)) (not (looking-at "[ \t]*$")))
               (comment-or-uncomment-region (line-beginning-position) (line-end-position))
             (comment-dwim arg)))
-2
+
 (global-set-key "\M-;" 'comment-dwim-line)
 
 (global-set-key "\C-cy" '(lambda ()
