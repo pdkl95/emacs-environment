@@ -1,4 +1,4 @@
-(load-theme 'pdklburn t)
+;(load-theme 'pdklburn t)
 
 (menu-bar-mode)
 (ido-yes-or-no-mode)
@@ -7,6 +7,13 @@
 
 (require 'pretty-lambdada)
 (pretty-lambda-for-modes)
+
+(defun server-shutdown ()
+  "Save buffers, Quit, and Shutdown (kill) server"
+  (interactive)
+  (save-some-buffers)
+  (kill-emacs)
+  )
 
 ;; stupid must-have-my-way-only attitude in Prelude,
 ;; at leat for the arrow keys
@@ -42,7 +49,10 @@
 ;;(add-hook 'sh-set-shell-hook 'flymake-shell-load)
 ;;(require 'flymake-sass)
 ;;(add-hook 'sass-shell-hook 'flymake-sass-load)
+
 ;;(add-hook 'coffee-mode-hook 'flymake-coffee-load)
+
+(add-hook 'ruby-mode-hook 'flymake-ruby-load)
 
 ;; try and set sh-mode's subtype to bash by default
 (add-hook 'sh-mode-hook
@@ -54,9 +64,11 @@
   "Default coding hook, useful with any programming language. (overridden)"
   ;;(flyspell-prog-mode)
   ;;(prelude-local-comment-auto-fill)
-  (prelude-turn-on-whitespace)
+  #'(lambda () (projectile-mode))
+  ;;(prelude-turn-on-whitespace)
   (prelude-turn-on-abbrev)
   (prelude-add-watchwords)
+  ;;(electric-pair-mode -1) ;; removed in prelude
   (add-hook 'before-save-hook 'whitespace-cleanup nil t))
 
 (defun pdkl-coffee-mode-hook ()
