@@ -1,62 +1,13 @@
-(deftheme pdklburn
-  "Created 2012-01-10.")
+(deftheme pdklburn3
+  "Created 2012-01-14.")
 
 (custom-theme-set-variables
- 'pdklburn)
+ 'pdklburn3
+ )
 
 (custom-theme-set-faces
- 'pdklburn
-
- ;; inherited from pdklburn
- '(whitespace-empty ((t (:background "#2e2533"))))
- '(whitespace-hspace ((t nil)))
- '(whitespace-indentation ((t nil)))
- '(whitespace-line ((t (:background "#151012" :foreground "#bc7cb3"))))
- '(whitespace-newline ((t nil)))
- '(whitespace-space ((t (:background "#0b0b0b"))))
- '(whitespace-tab ((t nil)))
- '(whitespace-trailing ((t (:background "firebrick3" :foreground "thistle2"))))
- '(c-annotation-face ((t (:foreground "steel blue"))))
- '(font-lock-comment-delimiter-face ((t (:foreground "#ff0000"))))
- '(font-lock-comment-face ((t (:foreground "#dd3333"))))
- '(font-lock-constant-face ((t (:foreground "#a47bff"))))
- '(font-lock-preprocessor-face ((t (:foreground "#6c60ff" :weight ultra-bold))))
- '(font-lock-regexp-grouping-backslash ((t (:background "#333011" :foreground "#e0bf90" :weight bold))))
- '(font-lock-regexp-grouping-construct ((t (:background "#333011" :foreground "#e0bf90" :weight bold))))
- '(font-lock-string-face ((t (:foreground "#eb9366"))))
- '(font-lock-type-face ((t (:foreground "#99ee99" :weight bold))))
- '(fringe ((t (:background "grey20"))))
- '(widget-button ((t (:background "#92b6f4" :foreground "black" :box (:line-width 2 :color "#92b6f4" :style released-button) :weight bold))))
- '(widget-button-pressed ((t (:background "#a47bff" :foreground "black" :box (:line-width 2 :color "#a47bff" :style pressed-button)))))
- '(widget-field ((t (:background "#333333"))))
- '(widget-inactive ((t (:foreground "grey70"))))
- '(widget-single-line-field ((t (:background "#333333"))))
- '(vertical-border ((t nil)))
- '(variable-pitch ((t (:family "Ubuntu"))))
- '(trailing-whitespace ((t (:background "firebrick"))))
- '(secondary-selection ((t (:background "#334433"))))
- '(next-error ((t (:background "#441133"))))
- '(mode-line-inactive ((t (:inherit mode-line :background "grey30" :foreground "grey80" :box (:line-width -1 :color "grey40" :style released-button) :weight light))))
- '(mode-line-highlight ((t (:background "#a47bff" :foreground "black" :box (:line-width 2 :color "#a47bff" :style released-button)))))
- '(mode-line-emphasis ((t (:foreground "#c460ff" :weight bold))))
- '(mode-line-buffer-id ((t (:foreground "#30ddff" :weight normal))))
- '(mode-line ((t (:background "#131313" :foreground "#a47bff" :box (:line-width -1 :color "#5276b4")))))
- '(menu ((t nil)))
- '(match ((t (:background "#3344bb"))))
- '(link-visited ((t (:foreground "violet" :underline t))))
- '(link ((t (:foreground "cyan1" :underline t))))
- '(lazy-highlight ((t (:background "#335544"))))
- '(italic ((t (:slant italic))))
- '(isearch-fail ((t (:background "red4"))))
- '(isearch ((t (:background "palevioletred2" :foreground "brown4"))))
- '(ido-subdir ((t (:foreground "red1"))))
- '(ido-first-match ((t (:weight bold))))
- '(highlight ((t (:background "#115544"))))
- '(header-line ((t (:inherit mode-line :background "grey20" :foreground "grey90" :box (:line-width -1 :color "#5276b4")))))
- '(fixed-pitch ((t (:family "Terminus"))))
-
-
- ;; new in pdklburn2
+ 'pdklburn3
+ '(default ((t (:inherit nil :stipple nil :background "#0b0b0b" :foreground "#92b6f4" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 87 :width normal :foundry "xos4" :family "Terminus"))))
  '(css-proprietary-property ((t (:inherit css-property :background "#171005"))))
  '(css-selector ((t (:inherit font-lock-builtin-face))))
  '(cursor ((t (:background "#ADA8F2"))))
@@ -112,7 +63,6 @@
  '(strokes-char ((t (:background "black"))))
  '(tool-bar ((t (:inherit modeline :background "#131313" :foreground "#a47bff" :box (:line-width -1 :color "#5276b4")))))
  '(tooltip ((t (:inherit modeline :background "#131313" :foreground "#a47bff"))))
- '(variable-pitch ((t (:stipple nil :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 1.0 :width normal :foundry "bitstream" :family "bitstream vera sans"))))
- '(default ((t (:inherit nil :stipple nil :background "#0b0b0b" :foreground "#92b6f4" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 130 :width normal :foundry "microsoft" :family "Consolas")))))
+ '(variable-pitch ((t (:stipple nil :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 1.0 :width normal :foundry "bitstream" :family "bitstream vera sans")))))
 
-(provide-theme 'pdklburn)
+(provide-theme 'pdklburn3)

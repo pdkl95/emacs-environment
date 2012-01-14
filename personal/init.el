@@ -1,4 +1,5 @@
-;(load-theme 'pdklburn t)
+;;;(load-theme 'pdklburn t)
+;;; MOVED TO PRELUDE INIT!!!
 
 (menu-bar-mode)
 (ido-yes-or-no-mode)
