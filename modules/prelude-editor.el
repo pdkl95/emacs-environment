@@ -71,7 +71,7 @@
                                          try-complete-lisp-symbol))
 
 ;; smart indenting and pairing for all
-(electric-pair-mode t)
+;;(electric-pair-mode t)
 (electric-indent-mode t)
 (electric-layout-mode t)
 
@@ -100,8 +100,8 @@
 
 ;; save recent files
 (setq recentf-save-file (concat user-emacs-directory "recentf")
-      recentf-max-saved-items 200
-      recentf-max-menu-items 15)
+      recentf-max-saved-items 20
+      recentf-max-menu-items 10)
 (recentf-mode t)
 
 ;; time-stamps
@@ -124,9 +124,9 @@
 (global-hl-line-mode +1)
 
 ;; tramp, for sudo access
-(require 'tramp)
+;;(require 'tramp)
 ;; keep in mind known issues with zsh - see emacs wiki
-(setq tramp-default-method "ssh")
+;;(setq tramp-default-method "ssh")
 
 ;; ido-mode
 (ido-mode t)
@@ -143,31 +143,31 @@
 (set-default 'imenu-auto-rescan t)
 
 ;; flyspell-mode does spell-checking on the fly as you type
-(setq ispell-program-name "aspell" ; use aspell instead of ispell
-      ispell-extra-args '("--sug-mode=ultra"))
-(autoload 'flyspell-mode "flyspell" "On-the-fly spelling checker." t)
+;;(setq ispell-program-name "aspell" ; use aspell instead of ispell
+;;      ispell-extra-args '("--sug-mode=ultra"))
+;;(autoload 'flyspell-mode "flyspell" "On-the-fly spelling checker." t)
 
-(defun prelude-turn-on-flyspell ()
-  "Force flyspell-mode on using a positive argument.  For use in hooks."
-  (interactive)
-  (flyspell-mode +1))
+;;(defun prelude-turn-on-flyspell ()
+;;  "Force flyspell-mode on using a positive argument.  For use in hooks."
+;;  (interactive)
+;;  (flyspell-mode +1))
 
-(add-hook 'message-mode-hook 'prelude-turn-on-flyspell)
-(add-hook 'text-mode-hook 'prelude-turn-on-flyspell)
+;;(add-hook 'message-mode-hook 'prelude-turn-on-flyspell)
+;;(add-hook 'text-mode-hook 'prelude-turn-on-flyspell)
 
 ;; enable narrow to region
-(put 'narrow-to-region 'disabled nil)
+;;(put 'narrow-to-region 'disabled nil)
 
 ;; bookmarks
-(setq bookmark-default-file (concat user-emacs-directory "bookmarks")
-      bookmark-save-flag 1)
+;;(setq bookmark-default-file (concat user-emacs-directory "bookmarks")
+;;      bookmark-save-flag 1)
 
 ;; enabled auto-fill mode in text-mode and all related modes
-(add-hook 'text-mode-hook 'turn-on-auto-fill)
+;;(add-hook 'text-mode-hook 'turn-on-auto-fill)
 
-;; load yasnippet
-(require 'yasnippet)
-(yas/initialize)
+;; load yasnippet        ;;;; I HATE YASNIPPET
+;;(require 'yasnippet)   ;;;; CONSTANTLY GETS IN THE WAY
+;;(yas/initialize)       ;;;; AND LOADS **INSANELY** SLOW
 
 ;; projectile is a project management mode
 (require 'projectile)
