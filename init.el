@@ -87,9 +87,9 @@ by Prelude.")
     nil))
 
 (message ">>> customizer settings: %s" custom-file)
-(load custom-file)
 
 ;; the core stuff
+;(require 'prelude-packages)
 (pdkl-require 'prelude-packages)
 (pdkl-require 'prelude-el-get)
 (pdkl-require 'prelude-ui)
@@ -116,6 +116,8 @@ by Prelude.")
 (pdkl-require 'prelude-ruby)
 ;;(pdkl-require 'prelude-scheme)
 (pdkl-require 'prelude-xml)
+
+(load custom-file)
 
 ;; load the personal settings
 (when (file-exists-p prelude-personal-dir)
