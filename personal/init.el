@@ -7,12 +7,20 @@
 ;; settings that are high level, but don't
 ;; really fit anywhere else
 (menu-bar-mode)
-(ido-yes-or-no-mode)
 (smex-initialize)
 (global-rainbow-delimiters-mode)
+;;(ido-yes-or-no-mode)
+(fset 'yes-or-no-p 'y-or-n-p)
 
 (require 'pretty-lambdada)
 (pretty-lambda-for-modes)
+
+;;(set-frame-font "Menlo-16")
+;;(load-theme 'tango)
+
+;;(require 'rebox2)
+;;(global-set-key [(meta q)] 'rebox-dwim)
+;;(global-set-key [(shift meta q)] 'rebox-cycle)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; running emacs itself...
@@ -155,7 +163,7 @@ mode hooks... with an even more insane macro."
 ;;  SASS-MODE  ;;
 ;;;;;;;;;;;;;;;;;
 
-(pdkl-hook-mode sass
+(pdkl-hook-mode sass/
                 (require 'flymake-sass)
                 (flymake-sass-load))
 
@@ -177,7 +185,11 @@ mode hooks... with an even more insane macro."
 (pdkl-hook-mode emacs-lisp
                 ;;(disable-paredit-mode)
                 (paredit-mode -1)
-                (setq mode-name "el"))
+                (setq mode-name "el")
+                ;;(setq (make-local-variable 'rebox-style-loop) '(525 517 521))
+                ;;(setq (make-local-variable 'rebox-min-fill-column 40))
+                ;;(rebox-mode 1)
+                )
 
 
 
