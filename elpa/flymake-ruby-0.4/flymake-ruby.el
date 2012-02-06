@@ -5,6 +5,7 @@
 ;;; URL: https://github.com/purcell/flymake-ruby
 ;;; Version: 0.4
 ;;;
+
 ;;; Commentary:
 ;; Usage:
 ;;   (require 'flymake-ruby)
@@ -15,7 +16,7 @@
 
 (defconst flymake-ruby-err-line-patterns '(("^\\(.*\\):\\([0-9]+\\): \\(.*\\)$" 1 2 nil 3)))
 
-(defvar flymake-ruby-executable "ruby"
+(defvar flymake-ruby-executable "/home/endymion/.rbenv/versions/1.9.3-p0-perf/bin/ruby"
   "The ruby executable to use for syntax checking.")
 
 (defun flymake-ruby--create-temp-in-system-tempdir (file-name prefix)

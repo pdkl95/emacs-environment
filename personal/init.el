@@ -15,12 +15,21 @@
 (require 'pretty-lambdada)
 (pretty-lambda-for-modes)
 
+(delete-selection-mode nil)
+
+;(require 'autopair)
+;(autopair-global-mode) ;; to enable in all buffers
+;(setq autopair-autowrap t)
+
+(require 'popwin)
+(setq display-buffer-function 'popwin:display-buffer)
+
 ;;(set-frame-font "Menlo-16")
 ;;(load-theme 'tango)
 
-;;(require 'rebox2)
-;;(global-set-key [(meta q)] 'rebox-dwim)
-;;(global-set-key [(shift meta q)] 'rebox-cycle)
+(require 'rebox2)
+(global-set-key [(meta q)] 'rebox-dwim)
+(global-set-key [(shift meta q)] 'rebox-cycle)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; running emacs itself...
@@ -39,9 +48,7 @@
   (eval-after-load "company"
       '(diminish 'company-mode "Cmp"))
   (eval-after-load "abbrev"
-    '(diminish 'abbrev-mode "Ab"))
-  (eval-after-load "yasnippet"
-    '(diminish 'yas/minor-mode "Y")))
+    '(diminish 'abbrev-mode "Ab")))
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -156,7 +163,9 @@ mode hooks... with an even more insane macro."
 ;;;;;;;;;;;;;;;;;
 
 (pdkl-hook-mode ruby
-                (flymake-ruby-load))
+                (flymake-ruby-load)
+                (setq flymake-ruby-executable "/home/endymion/.rbenv/versions/1.9.3-p0-perf/bin/ruby")
+                )
 
 
 ;;;;;;;;;;;;;;;;;

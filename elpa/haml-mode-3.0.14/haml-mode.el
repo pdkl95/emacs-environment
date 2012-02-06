@@ -4,7 +4,7 @@
 
 ;; Author: Nathan Weizenbaum
 ;; URL: http://github.com/nex3/haml/tree/master
-;; Version: 3.0.14
+;; Version: 3.0.15
 ;; Created: 2007-03-08
 ;; By: Nathan Weizenbaum
 ;; Keywords: markup, language, html
@@ -102,12 +102,12 @@ The line containing RE is matched, as well as all lines indented beneath it."
     (haml-highlight-ruby-tag              1 font-lock-preprocessor-face)
     (haml-highlight-ruby-script           1 font-lock-preprocessor-face)
     ("^!!!.*"                             0 font-lock-constant-face)
-    ("| *$"                               0 font-lock-string-face)))
+    ("\\s| *$"                            0 font-lock-string-face)))
 
 (defconst haml-filter-re "^[ \t]*:\\w+")
 (defconst haml-comment-re "^[ \t]*\\(?:-\\#\\|/\\)")
 
-(defun haml-fontify-region (beg end keywords syntax-table syntactic-keywords)
+(defun haml-fontify-region (beg end keywords syntax-table syntactic-keywords-or-propertize-function)
   "Fontify a region between BEG and END using another mode's fontification.
 
 KEYWORDS, SYNTAX-TABLE, and SYNTACTIC-KEYWORDS are the values of that mode's
@@ -117,7 +117,10 @@ and `font-lock-syntactic-keywords', respectively."
     (save-match-data
       (let ((font-lock-keywords keywords)
             (font-lock-syntax-table syntax-table)
-            (font-lock-syntactic-keywords syntactic-keywords)
+            (font-lock-syntactic-keywords (unless (functionp syntactic-keywords-or-propertize-function)
+                                            syntactic-keywords-or-propertize-function))
+            (syntax-propertize-function (when (functionp syntactic-keywords-or-propertize-function)
+                                          syntactic-keywords-or-propertize-function))
             (font-lock-multiline 'undecided)
             font-lock-keywords-only
             font-lock-extend-region-functions
@@ -130,7 +133,9 @@ and `font-lock-syntactic-keywords', respectively."
   "Use Ruby's font-lock variables to fontify the region between BEG and END."
   (haml-fontify-region beg end ruby-font-lock-keywords
                        ruby-font-lock-syntax-table
-                       ruby-font-lock-syntactic-keywords))
+                       (if (boundp 'ruby-font-lock-syntactic-keywords)
+                           ruby-font-lock-syntactic-keywords
+                         'ruby-syntax-propertize-function)))
 
 (defun haml-handle-filter (filter-name limit fn)
   "If a FILTER-NAME filter is found within LIMIT, run FN on that filter.
@@ -166,7 +171,7 @@ This requires that `css-mode' is available.
 (defun haml-highlight-js-filter-block (limit)
   "If a :javascript filter is found within LIMIT, highlight it.
 
-This requires that Karl Landström's javascript mode be available, either as the
+This requires that Karl LandstrÃ¶m's javascript mode be available, either as the
 \"js.el\" bundled with Emacs 23, or as \"javascript.el\" found in ELPA and
 elsewhere."
   (let ((keywords (or (and (featurep 'js) js--font-lock-keywords-3)
@@ -398,7 +403,7 @@ With ARG, do it that many times."
   (set (make-local-variable 'indent-line-function) 'haml-indent-line)
   (set (make-local-variable 'indent-region-function) 'haml-indent-region)
   (set (make-local-variable 'parse-sexp-lookup-properties) t)
-  (setq comment-start "-#")
+  (set (make-local-variable 'comment-start) "-#")
   (setq font-lock-defaults '((haml-font-lock-keywords) t t)))
 
 ;; Useful functions

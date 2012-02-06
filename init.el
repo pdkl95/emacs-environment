@@ -32,9 +32,9 @@
 ;; Boston, MA 02110-1301, USA.
 
 ;;; Code:
-(require 'cl)
 
 (require 'cl)
+
 (defvar *emacs-init-start-time* (current-time))
 (message ">>> *** STARTING EMACS INIT (with prelude) ***")
 
