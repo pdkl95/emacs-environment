@@ -17,6 +17,15 @@
 
 (delete-selection-mode nil)
 
+(require 'volatile-highlights)
+(volatile-highlights-mode t)
+
+(require 'shell-pop)
+sdfsdf
+(shell-pop-set-internal-mode "ansi-term")
+(shell-pop-set-internal-mode-shell "/bin/bash")
+(global-set-key [f8] 'shell-pop)
+
 ;(require 'autopair)
 ;(autopair-global-mode) ;; to enable in all buffers
 ;(setq autopair-autowrap t)
@@ -27,9 +36,32 @@
 ;;(set-frame-font "Menlo-16")
 ;;(load-theme 'tango)
 
+;;(projectile-global-mode nil)
+(require 'find-file-in-project)
+(global-set-key (kbd "C-x f") 'find-file-in-project)
+
+
 (require 'rebox2)
 (global-set-key [(meta q)] 'rebox-dwim)
 (global-set-key [(shift meta q)] 'rebox-cycle)
+
+;; easy 'make'
+(defun save-all-and-compile ()
+  (save-some-buffers 1)
+  (sleep-for  ;; let us fall slightly out of sync with
+   0.5)       ;; that save for the sake of Makefiles
+  (compile compile-command))
+(global-set-key [(control c) (s)] 'save-all-and-compile)
+
+;; ignore results from make on success
+(defun compilation-exit-autoclose (status code msg)
+  (when (and (eq status 'exit) (zerop code))
+    (bury-buffer)
+    (delete-window (get-buffer-window (get-buffer "*compilation*"))))
+  ;; Always return the anticipated result of compilation-exit-message-function
+  (cons msg code))
+;;(setq compilation-exit-message-function 'compilation-exit-autoclose)
+(setq compilation-exit-message-function nil)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; running emacs itself...
@@ -109,7 +141,7 @@
   "Default coding hook, useful with any programming language. (overridden)"
   ;;(flyspell-prog-mode)
   ;;(prelude-local-comment-auto-fill)
-  #'(lambda () (projectile-mode))
+  ;; #'(lambda () (projectile-mode))
   ;;(prelude-turn-on-whitespace)
   (prelude-turn-on-abbrev)
   (prelude-add-watchwords)
@@ -154,6 +186,7 @@ mode hooks... with an even more insane macro."
 (pdkl-hook-mode sh
                 (require 'flymake-shell)
                 (flymake-shell-load)
+
                 '(lambda () (and buffer-file-name
                             (string-match "\\.sh\\'" buffer-file-name)
                             (sh-set-shell "bash"))))
@@ -174,6 +207,7 @@ mode hooks... with an even more insane macro."
 
 (pdkl-hook-mode sass/
                 (require 'flymake-sass)
+                (electric-indent-mode -1)
                 (flymake-sass-load))
 
 ;;;;;;;;;;;;;;;;;
@@ -182,6 +216,7 @@ mode hooks... with an even more insane macro."
 
 (pdkl-hook-mode haml
                 (setq indent-tabs-mode nil)
+                (electric-indent-mode -1)
                 ;; this fix looks suspiciously related to the <return>
                 ;; key's indent in coffee-mode
                 (define-key haml-mode-map "\C-m" 'newline-and-indent))
