@@ -20,7 +20,7 @@
 ;;
 ;; (require 'haml-mode)
 
-;;; Code:
+;;; Code:ls /tmp
 
 (eval-when-compile (require 'cl))
 (require 'ruby-mode)

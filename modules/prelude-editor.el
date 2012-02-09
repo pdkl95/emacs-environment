@@ -170,8 +170,8 @@
 ;;(yas/initialize)       ;;;; AND LOADS **INSANELY** SLOW
 
 ;; projectile is a project management mode
-(require 'projectile)
-(projectile-global-mode t)
+;;(require 'projectile)
+;;(projectile-global-mode t)
 
 ;; dired - reuse current buffer by pressing 'a'
 (put 'dired-find-alternate-file 'disabled nil)
