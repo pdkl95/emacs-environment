@@ -3,7 +3,7 @@
 ;;; Code:
 
 
-;;;### (autoloads (yari yari-anything) "yari" "yari.el" (20187 24863))
+;;;### (autoloads (yari yari-anything) "yari" "yari.el" (20285 8499))
 ;;; Generated autoloads from yari.el
 
 (autoload 'yari-anything "yari" "\
@@ -18,7 +18,7 @@ Look up Ruby documentation.
 
 ;;;***
 
-;;;### (autoloads nil nil ("yari-pkg.el") (20187 24863 960312))
+;;;### (autoloads nil nil ("yari-pkg.el") (20285 8500 20373))
 
 ;;;***
 

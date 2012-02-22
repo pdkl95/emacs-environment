@@ -49,7 +49,7 @@
   "Set local key defs for inf-ruby in ruby-mode")
 
 ;; yari provides a nice Emacs interface to ri
-(require 'yari)
+;;(require 'yari)
 
 ;; yaml-mode
 (require 'yaml-mode)
@@ -64,7 +64,8 @@
   ;; turn off the annoying input echo in irb
   (setq comint-process-echoes t)
   (ruby-block-mode t)
-  (local-set-key (kbd "C-h r") 'yari))
+  ;;(local-set-key (kbd "C-h r") 'yari)
+)
 
 (add-hook 'ruby-mode-hook 'prelude-ruby-mode-hook)
 

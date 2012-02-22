@@ -12,19 +12,19 @@
 ;;(ido-yes-or-no-mode)
 (fset 'yes-or-no-p 'y-or-n-p)
 
-(require 'pretty-lambdada)
-(pretty-lambda-for-modes)
+;;(require 'pretty-lambdada)
+;;(pretty-lambda-for-modes)
 
-(delete-selection-mode nil)
+;;(delete-selection-mode nil)
 
-(require 'volatile-highlights)
-(volatile-highlights-mode t)
+;;(require 'volatile-highlights)
+;;(volatile-highlights-mode t)
 
-(require 'shell-pop)
-sdfsdf
-(shell-pop-set-internal-mode "ansi-term")
-(shell-pop-set-internal-mode-shell "/bin/bash")
-(global-set-key [f8] 'shell-pop)
+;;(require 'shell-pop)
+
+;;(shell-pop-set-internal-mode "ansi-term")
+;;(shell-pop-set-internal-mode-shell "/bin/bash")
+;;(global-set-key [f8] 'shell-pop)
 
 ;(require 'autopair)
 ;(autopair-global-mode) ;; to enable in all buffers
@@ -37,13 +37,13 @@ sdfsdf
 ;;(load-theme 'tango)
 
 ;;(projectile-global-mode nil)
-(require 'find-file-in-project)
-(global-set-key (kbd "C-x f") 'find-file-in-project)
+;;(require 'find-file-in-project)
+;;(global-set-key (kbd "C-x f") 'find-file-in-project)
 
 
-(require 'rebox2)
-(global-set-key [(meta q)] 'rebox-dwim)
-(global-set-key [(shift meta q)] 'rebox-cycle)
+;;(require 'rebox2)
+;;(global-set-key [(meta q)] 'rebox-dwim)
+;;(global-set-key [(shift meta q)] 'rebox-cycle)
 
 ;; easy 'make'
 (defun save-all-and-compile ()
