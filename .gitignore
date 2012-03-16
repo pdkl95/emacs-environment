@@ -13,4 +13,6 @@ url
 session.*
 personal/*.el
 unsupported
+vendor/mmm-mode
+vendor/sauron
 .smex*
