@@ -3,65 +3,35 @@
 
 (message "local-init: BEGIN")
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; settings that are high level, but don't
-;; really fit anywhere else
-(menu-bar-mode)
-(smex-initialize)
-(global-rainbow-delimiters-mode)
-;;(ido-yes-or-no-mode)
+
+;;;;;;;;;;;;;;;;;;;;;
+;; GLOBAL SETTINGS ;;
+;;;;;;;;;;;;;;;;;;;;;
+
+(setq debug-on-error t)
 (fset 'yes-or-no-p 'y-or-n-p)
 
-;;(require 'pretty-lambdada)
-;;(pretty-lambda-for-modes)
+;; re-enabling disabled stuff
+(put 'narrow-to-defun  'disabled nil)
+(put 'narrow-to-page   'disabled nil)
+(put 'narrow-to-region 'disabled nil)
+;; ...and disable some of the VERY annoying stuff
+(put 'overwrite-mode 'disabled t)
 
-;;(delete-selection-mode nil)
 
-;;(require 'volatile-highlights)
-;;(volatile-highlights-mode t)
+(add-hook 'before-save-hook 'time-stamp)
 
-;;(require 'shell-pop)
+;; global minor modes
+(menu-bar-mode)
+(global-rainbow-delimiters-mode)
+(smex-initialize)
 
-;;(shell-pop-set-internal-mode "ansi-term")
-;;(shell-pop-set-internal-mode-shell "/bin/bash")
-;;(global-set-key [f8] 'shell-pop)
-
-;(require 'autopair)
-;(autopair-global-mode) ;; to enable in all buffers
-;(setq autopair-autowrap t)
+(require 'volatile-highlights)
+(volatile-highlights-mode t)
 
 (require 'popwin)
 (setq display-buffer-function 'popwin:display-buffer)
 
-;;(set-frame-font "Menlo-16")
-;;(load-theme 'tango)
-
-;;(projectile-global-mode nil)
-;;(require 'find-file-in-project)
-;;(global-set-key (kbd "C-x f") 'find-file-in-project)
-
-
-;;(require 'rebox2)
-;;(global-set-key [(meta q)] 'rebox-dwim)
-;;(global-set-key [(shift meta q)] 'rebox-cycle)
-
-;; easy 'make'
-(defun save-all-and-compile ()
-  (save-some-buffers 1)
-  (sleep-for  ;; let us fall slightly out of sync with
-   0.5)       ;; that save for the sake of Makefiles
-  (compile compile-command))
-(global-set-key [(control c) (s)] 'save-all-and-compile)
-
-;; ignore results from make on success
-(defun compilation-exit-autoclose (status code msg)
-  (when (and (eq status 'exit) (zerop code))
-    (bury-buffer)
-    (delete-window (get-buffer-window (get-buffer "*compilation*"))))
-  ;; Always return the anticipated result of compilation-exit-message-function
-  (cons msg code))
-;;(setq compilation-exit-message-function 'compilation-exit-autoclose)
-(setq compilation-exit-message-function nil)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; running emacs itself...
@@ -82,43 +52,71 @@
   (eval-after-load "abbrev"
     '(diminish 'abbrev-mode "Ab")))
 
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;               KEY BINDINGS                 ;;
+;;              MISC FUNCTIONS                ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-;; stupid must-have-my-way-only attitude in Prelude,
-;; at leat for the arrow keys
-(global-set-key (kbd "<up>") 'previous-line)
-(global-set-key (kbd "<down>") 'next-line)
-(global-set-key (kbd "<left>") 'left-char)
-(global-set-key (kbd "<right>") 'right-char)
+(defun indent-buffer ()
+  (interactive)
+  (indent-region (point-min) (point-max)))
 
-(global-set-key (kbd "M-x") 'smex)
-(global-set-key (kbd "M-X") 'smex-major-mode-commands)
+(defun insert-date ()
+  "Insert a time-stamp according to locale's date and time format."
+  (interactive)
+  (insert (format-time-string "%c" (current-time))))
 
-(global-set-key (kbd "C-x C-k")   'kill-some-buffers)
-(global-set-key (kbd "C-x C-M-k") 'kill-matching-buffers)
-
-;; This is your old M-x.
-(global-set-key (kbd "C-c C-c M-x") 'execute-extended-command)
-
-(global-set-key "\C-cy" '(lambda () (interactive)
-                           (popup-menu 'yank-menu)))
-
-;; C-+ is normally set to increase the font size, which is
-;; something I /always/ keep constant. So After one to many
-;; stupid failures related t that it's geting rebound to another
-;; 'undo key, which is usually what I wnted to do with with C-_
-;; when I mistype and hit this atything
-(global-set-key (kbd "C-+") 'undo)
+(defun lorem ()
+  "Insert a lorem ipsum."
+  (interactive)
+  (insert "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do "
+          "eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim"
+          "ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut "
+          "aliquip ex ea commodo consequat. Duis aute irure dolor in "
+          "reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla "
+          "pariatur. Excepteur sint occaecat cupidatat non proident, sunt in "
+          "culpa qui officia deserunt mollit anim id est laborum."))
 
 
-;;(require 'drag-stuff)
-;;(drag-stuff-global-mode t)
-;;(add-to-list 'drag-stuff-except-modes 'conflicting-mode)
-;;(setq drag-stuff-modifier '(meta shift))
-;;(setq drag-stuff-modifier '(control))
+;; force all scripts to be executable when saving
+(add-hook
+  'after-save-hook
+  '(lambda ()
+    (progn
+      (and (save-excursion
+          (save-restriction
+            (widen)
+            (goto-char (point-min))
+            (save-match-data
+              (looking-at "^#!"))))
+        (shell-command (concat "chmod u+x " buffer-file-name))
+        (message (concat "Saved as script: " buffer-file-name))
+        ))))
+
+
+(defun popup-yank-menu ()
+  (interactive)
+  (popup-menu 'yank-menu))
+
+;; easy 'make'
+(defun save-all-and-compile ()
+  (save-some-buffers 1)
+  (sleep-for  ;; let us fall slightly out of sync with
+   0.5)       ;; that save for the sake of Makefiles
+  (compile compile-command))
+
+;; ignore results from make on success
+(defun compilation-exit-autoclose (status code msg)
+  (when (and (eq status 'exit)
+             (zerop code))
+    (bury-buffer)
+    (delete-window (get-buffer-window (get-buffer "*compilation*"))))
+  ;; Always return the anticipated result of compilation-exit-message-function
+  (cons msg code))
+
+(setq compilation-exit-message-function 'compilation-exit-autoclose)
+;;(setq compilation-exit-message-function nil)
+
+
 
 ;; Original idea from
 ;; http://www.opensubscriber.com/message/emacs-devel@gnu.org/10971693.html
@@ -130,11 +128,12 @@
         at the end of the line."
           (interactive "*P")
           (comment-normalize-vars)
-          (if (and (not (region-active-p)) (not (looking-at "[ \t]*$")))
-              (comment-or-uncomment-region (line-beginning-position) (line-end-position))
+          (if (and (not (region-active-p))
+                   (not (looking-at "[ \t]*$")))
+              (comment-or-uncomment-region
+               (line-beginning-position)
+               (line-end-position))
             (comment-dwim arg)))
-(global-set-key "\M-;" 'comment-dwim-line)
-
 
 ;; fix some pre Prelude's idiotic settings...
 (defun prelude-prog-mode-hook ()
@@ -148,6 +147,41 @@
   ;;(electric-pair-mode -1) ;; removed in prelude
   (add-hook 'before-save-hook 'whitespace-cleanup nil t))
 
+
+(defun prelude-turn-on-flyspell ()
+  (message "prelude-turn-on-flyspell hack-workaround called!"))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;               KEY BINDINGS                 ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(setq keybinding '("<up>" 'foo))
+
+;; stupid must-have-my-way-only attitude in Prelude,
+;; at leat for the arrow keys
+(mapc (lambda (keybinding)
+        (let ((args (list (read-kbd-macro (car keybinding))
+                          (car (cdr keybinding)))))
+          (apply 'global-set-key args)))
+      '(("<up>"        previous-line)
+        ("<down>"      next-line)
+        ("<left>"      left-char)
+        ("<right>"     right-char)
+        ("M-x"         smex)
+        ("M-X"         smex-major-mode-commands)
+        ("M-;"         comment-dwim-line)
+        ("C-c y"       popup-yank-menu)
+        ("C-c s"       save-all-and-compile)
+        ("C-c C-c M-x" execute-extended-command)
+        ("C-x C-k"     kill-some-buffers)
+        ("C-x C-M-k"   kill-matching-buffers)
+        ))
+
+;; C-+ is normally set to increase the font size, which is
+;; something I /always/ keep constant. So After one to many
+;; stupid failures related t that it's geting rebound to another
+;; 'undo key, which is usually what I wnted to do with with C-_
+;; when I mistype and hit this atything
+(global-set-key (kbd "C-+") 'undo)
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -175,7 +209,8 @@ mode hooks... with an even more insane macro."
 (pdkl-hook-mode coffee
                 (define-key coffee-mode-map (kbd "<ret>") 'newline)
                 ;; at least until i can setup some file-optional save hook
-                (define-key coffee-mode-map (kbd "C-c C-c C-c") 'coffee-compile-file)
+                (define-key coffee-mode-map
+                  (kbd "C-c C-c C-c") 'coffee-compile-file)
                 (electric-indent-mode -1))
 
 
@@ -196,8 +231,10 @@ mode hooks... with an even more insane macro."
 ;;;;;;;;;;;;;;;;;
 
 (pdkl-hook-mode ruby
-                (flymake-ruby-load)
-                (setq flymake-ruby-executable "/home/endymion/.rbenv/versions/1.9.3-p0-perf/bin/ruby")
+                (setq ruby-deep-arglist t)
+                (setq ruby-deep-indent-paren nil)
+                ;; (flymake-ruby-load)
+                ;; (setq flymake-ruby-executable "/home/endymion/.rbenv/versions/1.9.3-p0-perf/bin/ruby")
                 )
 
 
@@ -237,8 +274,5 @@ mode hooks... with an even more insane macro."
 
 
 
-
-
 ;; done...
 (message "local-init: END")
-(setq debug-on-error t)
