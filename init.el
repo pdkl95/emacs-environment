@@ -133,3 +133,4 @@ by Prelude.")
               (+ (first *emacs-init-start-time*)
                  (second *emacs-init-start-time*)))))
 ;;; init.el ends here
+(put 'ido-exit-minibuffer 'disabled nil)
