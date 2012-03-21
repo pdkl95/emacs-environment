@@ -99,7 +99,7 @@ by Prelude.")
 
 ;; programming & markup languages support
 (pdkl-require 'prelude-programming)
-(pdkl-require 'prelude-c)
+;;(pdkl-require 'prelude-c)
 ;;(pdkl-require 'prelude-clojure)
 (pdkl-require 'prelude-coffee)
 (pdkl-require 'prelude-common-lisp)

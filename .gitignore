@@ -16,3 +16,6 @@ unsupported
 vendor/mmm-mode
 vendor/sauron
 .smex*
+*.elc
+*/*.elc
+**/*.elc
