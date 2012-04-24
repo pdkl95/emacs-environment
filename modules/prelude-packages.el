@@ -34,8 +34,13 @@
 ;;; Code:
 
 (require 'package)
+
 (add-to-list 'package-archives
-             '("marmalade" . "http://marmalade-repo.org/packages/") t)
+  '("melpa" . "http://melpa.milkbox.net/packages/") t)
+
+;;(add-to-list 'package-archives
+;;  '("marmalade" . "http://marmalade-repo.org/packages/") t)
+
 (package-initialize)
 
 (defvar prelude-packages
@@ -43,10 +48,10 @@
 ;;           haskell-mode inf-ruby markdown-mode paredit projectile
 ;;           python sass-mode rainbow-mode scss-mode solarized-theme
 ;;           yaml-mode yari zenburn-theme)
-  '(auctex clojure-mode coffee-mode deft full-ack gist groovy-mode haml-mode
-           inf-ruby markdown-mode paredit projectile
-           python sass-mode rainbow-mode scss-mode solarized-theme
-           yaml-mode)
+  '(auctex coffee-mode deft ack-and-a-half expand-region haml-mode
+           markdown-mode magit magithub melps paredit projectile
+           python sass-mode rainbow-mode scss-mode
+           volatile-highlights solarized-theme yaml-mode)
   "A list of packages to ensure are installed at launch.")
 
 (defun prelude-packages-installed-p ()

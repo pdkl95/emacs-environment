@@ -43,10 +43,6 @@
 ;; We never want to edit Rubinius bytecode
 (add-to-list 'completion-ignored-extensions ".rbc")
 
-(autoload 'run-ruby "inf-ruby"
-  "Run an inferior Ruby process")
-(autoload 'inf-ruby-keys "inf-ruby"
-  "Set local key defs for inf-ruby in ruby-mode")
 
 ;; yari provides a nice Emacs interface to ri
 ;;(require 'yari)
@@ -60,7 +56,6 @@
 (require 'ruby-end)
 
 (defun prelude-ruby-mode-hook ()
-  (inf-ruby-keys)
   ;; turn off the annoying input echo in irb
   (setq comint-process-echoes t)
   (ruby-block-mode t)
