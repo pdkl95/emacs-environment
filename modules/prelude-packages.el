@@ -49,7 +49,7 @@
 ;;           python sass-mode rainbow-mode scss-mode solarized-theme
 ;;           yaml-mode yari zenburn-theme)
   '(auctex coffee-mode deft ack-and-a-half expand-region haml-mode
-           markdown-mode magit magithub melps paredit projectile
+           markdown-mode magit magithub melpa paredit projectile
            python sass-mode rainbow-mode scss-mode
            volatile-highlights solarized-theme yaml-mode)
   "A list of packages to ensure are installed at launch.")
