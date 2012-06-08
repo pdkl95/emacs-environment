@@ -13,5 +13,6 @@
 (require 'pdkl-bindings)
 (require 'pdkl-mode-hooks)
 (require 'pdkl-ccmode)
+(require 'pdkl-org)
 
 (message "local-init: END")

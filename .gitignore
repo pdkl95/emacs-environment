@@ -10,6 +10,7 @@ rnc
 semanticdb
 custom.el
 url
+tramp
 session.*
 personal/*.el
 unsupported
