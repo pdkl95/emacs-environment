@@ -1,5 +1,30 @@
+;;
+;;        /\          /\          /\
+;;     /\//\\/\    /\//\\/\    /\//\\/\
+;;  /\//\\\///\\/\//\\\///\\/\//\\\///\\/\
+;; //\\\//\/\\///\\\//\/\\///\\\//\/\\///\\
+;; \\//\/                            \/\\//
+;;  \/     pdkl95-colorful-clarity      \/
+;;  /\     -----------------------      /\
+;; //\\                                //\\
+;; \\//   A custom-theme with bright   \\//
+;;  \/   colors, that maintains both    \/
+;;  /\      constrast and clarity.      /\
+;; //\\/\                            /\//\\
+;; \\///\\/\//\\\///\\/\//\\\///\\/\//\\\//
+;;  \/\\///\\\//\/\\///\\\//\/\\///\\\//\/
+;;     \/\\//\/    \/\\//\/    \/\\//\/
+;;        \/          \/          \/
+;;
+;;  created: 2012-01-10
+;;  updated: 2012-04-23
+;;  updated: 2012-08-10
+;;
+
+
 (deftheme pdklburn
-  "Created 2012-01-10; Updated 2012-04-23")
+  "A custom-thtme with bright colors,
+ that maintains both contrast and clarity.")
 
 (custom-theme-set-variables
  'pdklburn)
@@ -26,8 +51,8 @@
  '(font-lock-comment-face ((t (:foreground "#f23331"))))
  '(font-lock-constant-face ((t (:foreground "#a47bff"))))
  '(font-lock-doc-face ((t (:background "#1e1927" :foreground "brown2"))))
- '(font-lock-function-name-face ((t (:foreground "#3156ff" :weight bold))))
- '(font-lock-keyword-face ((t (:foreground "#24ddee" :weight bold))))
+ '(font-lock-function-name-face ((t (:foreground "#2266ff" :weight bold))))
+ '(font-lock-keyword-face ((t (:foreground "#00f4ff"))))
  '(font-lock-negation-char-face ((t (:foreground "maroon1" :weight bold))))
  '(font-lock-preprocessor-face ((t (:foreground "#6c60ff" :weight ultra-bold))))
  '(font-lock-regexp-grouping-backslash ((t (:background "#333011" :foreground "#e0bf90" :weight bold))))
@@ -78,8 +103,8 @@
  '(js3-magic-paren ((t (:inherit font-lock-preprocessor-face))))
  '(js3-warning ((t (:underline "#ffca10"))))
  '(lazy-highlight ((t (:background "#335544"))))
- '(link ((t (:inherit font-lock-function-name-face))))
- '(link-visited ((t (:foreground "violet" :underline t))))
+ '(link ((t (:foreground "#2277ff" :weight normal :underline t))))
+ '(link-visited ((t (:inherit link :foreground "#6255ff"))))
  '(match ((t (:background "#3344bb"))))
  '(menu ((t nil)))
  '(minibuffer-prompt ((t (:inherit font-lock-keyword-face))))
@@ -115,7 +140,7 @@
  '(rainbow-delimiters-depth-8-face ((t (:foreground "magenta2"))))
  '(rainbow-delimiters-depth-9-face ((t (:foreground "DeepSkyBlue2"))))
  '(rainbow-delimiters-unmatched-face ((t (:background "#001a16" :foreground "SpringGreen2"))))
- '(region ((t (:background "#1d182e"))))
+ '(region ((t (:background "#1f1836"))))
  '(ruby-op-face ((t (:background "#27132b" :foreground "#91a0ff" :weight semi-bold))))
  '(secondary-selection ((t (:background "#334433"))))
  '(sh-heredoc ((t (:background "dark slate blue" :foreground "CadetBlue1"))))
@@ -129,6 +154,7 @@
  '(variable-pitch ((t (:inherit default :stipple nil :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight thin :height 92 :width normal :foundry "unknown" :family "ubuntu"))))
  '(vertical-border ((t nil)))
  '(vhl/default-face ((t (:background "#2e134d"))))
+ '(which-func ((t (:foreground "#45f"))))
  '(whitespace-empty ((t (:background "#2e2533"))))
  '(whitespace-hspace ((t nil)))
  '(whitespace-indentation ((t nil)))
