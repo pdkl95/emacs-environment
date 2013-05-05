@@ -48,10 +48,14 @@
 ;;           haskell-mode inf-ruby markdown-mode paredit projectile
 ;;           python sass-mode rainbow-mode scss-mode solarized-theme
 ;;           yaml-mode yari zenburn-theme)
-  '(auctex coffee-mode deft ack-and-a-half expand-region haml-mode
-           markdown-mode magit magithub melpa paredit projectile
+;; '(auctex coffee-mode deft ack-and-a-half expand-region haml-mode
+;;          markdown-mode magit magithub melpa paredit projectile
+;;          python sass-mode rainbow-mode scss-mode
+;;          volatile-highlights solarized-theme yaml-mode)
+    '(auctex coffee-mode deft expand-region haml-mode
+           markdown-mode magit magithub melpa paredit
            python sass-mode rainbow-mode scss-mode
-           volatile-highlights solarized-theme yaml-mode)
+           volatile-highlights yaml-mode)
   "A list of packages to ensure are installed at launch.")
 
 (defun prelude-packages-installed-p ()

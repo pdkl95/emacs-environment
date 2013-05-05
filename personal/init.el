@@ -10,9 +10,10 @@
 (require 'pdkl-server)
 (require 'pdkl-defuns)
 (require 'pdkl-tramp)
-(require 'pdkl-bindings)
-(require 'pdkl-mode-hooks)
+(require 'pdkl-modes)
+(require 'pdkl-hooks)
 (require 'pdkl-ccmode)
 (require 'pdkl-org)
+(require 'pdkl-bindings)
 
 (message "local-init: END")

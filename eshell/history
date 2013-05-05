@@ -1,0 +1,65 @@
+ls
+cd 
+ls
+cd
+ls
+cd src
+ls
+echo 3
+echo $PATH
+echo ${PATH}
+/home/endymion/bin:/home/endymion/bin/elf:/home/endymion/.rbenv/shims:/home/endymion/.cw/bin:/home/endymion/opt/bin:/home/endymion/opt/games/bin:/usr/local/bin:/usr/in:/bin:/opt/bin:/usr/x86_64-pc-linux-gnu/gcc-bin/4.6.3:/usr/x86_64-pc-linux-gnu/gnat-gcc-bin/4.3:/usr/libexec/gnat-gcc/x86_64-pc-linux-gnu/4.3:/usr/games/bin
+echo foo > /dev/eshell
+ls > /dev/eshell
+ls
+ls
+ls > /dev/clip
+ls > /dev/clip
+ls > /dev/clip
+ls > /dev/clip
+echo qwerty > /dev/clip
+ls > /dev/clip
+echo me > /dev/kill
+ls
+export
+cd
+ls
+cd src
+ls
+cd asteroids/
+diff 
+g diff
+git diff
+ls
+echo -e "aaa\e[35mbbb\e[1mccc\e[0mddd"
+echo -e "aaa\033[35mbbb\033[1mccc\033[0mddd"
+bash -c 'echo -e "aaa\033[35mbbb\033[1mccc\033[0mddd"'
+ls
+bash -c 'echo -e "aaa\033[35mbbb\033[1mccc\033[0mddd"'
+/bin/l
+/bin/ls
+/bin/ls --color
+cd
+ls
+/bin/ls --color
+ls
+top
+htop
+echo -e "aaa\033[35mbbb\033[1mccc\033[0mddd"
+cd
+ls
+echo -e "aaa\033[35mbbb\033[1mccc\033[0mddd"
+htop
+ls
+cd src
+ls
+cd disinfo/
+ls
+htop
+htop --help
+htop --help
+diff Makefile.in Makefile
+/bin/diff Makefile.in Makefile
+/usr/bin/diff Makefile.in Makefile
+~/.cw/bin/diff Makefile.in Makefile
+~/.cw/bin/diff -u Makefile.in Makefile
