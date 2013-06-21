@@ -63,3 +63,9 @@ diff Makefile.in Makefile
 /usr/bin/diff Makefile.in Makefile
 ~/.cw/bin/diff Makefile.in Makefile
 ~/.cw/bin/diff -u Makefile.in Makefile
+ps ax 
+ps axu | grep urxvt
+pkill -9 urxvtc
+ps axu | grep urxvt
+kill -9 26757
+ps axu | grep urxvt

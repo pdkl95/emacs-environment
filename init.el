@@ -35,104 +35,108 @@
 
 (require 'cl)
 
-(defvar *emacs-init-start-time* (current-time))
+(defconst *emacs-init-start-time* (current-time))
 (message ">>> *** STARTING EMACS INIT (with prelude) ***")
 
 ;; On OS X Emacs doesn't use the shell PATH if it's not started from
 ;; the shell. If you're using homebrew modifying the PATH is essential.
-(if (eq system-type 'darwin)
-    (push "/usr/local/bin" exec-path))
+;;(if (eq system-type 'darwin)
+;;    (push "/usr/local/bin" exec-path))
 
-(defvar prelude-dir (file-name-directory load-file-name)
-  "The root dir of the Emacs Prelude distribution.")
-(defvar prelude-modules-dir (concat prelude-dir "modules/")
-  "This directory houses all of the built-in Prelude module. You should
-avoid modifying the configuration there.")
-(defvar prelude-vendor-dir (concat prelude-dir "vendor/")
-  "This directory house Emacs Lisp packages that are not yet available in
-ELPA (or Marmalade).")
-(defvar prelude-personal-dir (concat prelude-dir "personal/")
-  "Users of Emacs Prelude are encouraged to keep their personal configuration
-changes in this directory. All Emacs Lisp files there are loaded automatically
-by Prelude.")
+(defconst emacs-root-dir (file-name-directory load-file-name)
+  "Path to the current .emacs.d/")
+(defconst vendor-dir (concat emacs-root-dir "vendor/")
+  "misc vendor .el files")
+(defconst personal-dir (concat emacs-root-dir "personal/")
+  "personal init files")
+(defconst custom-themes-dir (concat emacs-root-dir "themes/")
+  "Path to where themes will be loaded")
+(defconst personal-init-file (concat personal-dir "init.el")
+  "File that loads the majority of the personal stuff, after the
+standard emacs, elpa, and vendor tools are loaded.")
+(defconst custom-file (concat personal-dir "custom.el")
+  "File where all of the 'customize' settings should be saved.")
 
-(add-to-list 'load-path prelude-modules-dir)
-(add-to-list 'load-path prelude-vendor-dir)
-(add-to-list 'load-path prelude-personal-dir)
+(add-to-list 'load-path vendor-dir)
+(add-to-list 'load-path personal-dir)
+(add-to-list 'custom-theme-load-path custom-themes-dir)
 
-(defconst personal-init-file (concat prelude-personal-dir "init.el"))
-(defconst custom-file (concat prelude-personal-dir "custom.el"))
+(defun fmt-msg (str &rest args)
+  (message (apply 'format str args)))
 
-(defun xxpdkl-require (feature)
-      (progn
-        (message  ">>> LOAD: %s" feature)
-        (if (stringp feature)
-            (load-library feature)
-          (require feature))
-        (message (format ">>> LOAD: %s <success>" feature)))
-)
-(defun pdkl-require (feature)
-  "Same as require, but with some debug output"
-  (condition-case err
-      (progn
-        (message  ">>> LOAD: %s" feature)
-        (if (stringp feature)
-            (load-library feature)
-          (require feature))
-        (message (format ">>> LOAD: %s <success>" feature)))
-      ('error (progn
-          (message (format ">>> *** FAILURE IN LOAD: %s ***" feature))
-          (message (format ">>> *** ERROR WAS: %s ***" err))
-      ))
-    nil))
+(defun pdkl-info (str &rest args)
+  (fmt-msg (concat ">>> " str) args))
+(defun pdkl-warn (str &rest args)
+  (fmt-msg (concat ">>> !!! " str) args))
+(defun pdkl-error (str &rest args)
+  (fmt-msg (concat ">>> *** " str " ***") args))
 
-(message ">>> customizer settings: %s" custom-file)
+;; keep track of what libs are missing
+(setq missing-packages-list '())
 
-;; the core stuff
-;(require 'prelude-packages)
-(pdkl-require 'prelude-packages)
-(pdkl-require 'prelude-el-get)
-(pdkl-require 'prelude-ui)
-(pdkl-require 'prelude-core)
-(pdkl-require 'prelude-editor)
-(pdkl-require 'prelude-global-keybindings)
+;; attempt to load a feature/library, failing silently
+(defmacro try-require (feature &rest forms)
+  "Wrapper around 'require' that never fails due to missing packages"
+  `(progn
+    (if (require ,feature nil t)
+      (progn ,@forms)
+      (add-to-list 'missing-packages-list ,feature 'append))))
 
-;; programming & markup languages support
-(pdkl-require 'prelude-programming)
-;;(pdkl-require 'prelude-c)
-;;(pdkl-require 'prelude-clojure)
-;;(pdkl-require 'prelude-coffee)
-(pdkl-require 'prelude-common-lisp)
-(pdkl-require 'prelude-emacs-lisp)
-;;(pdkl-require 'prelude-erc)
-;;(pdkl-require 'prelude-groovy)
-;;(pdkl-require 'prelude-haskell)
-;;(pdkl-require 'prelude-js)
-;;(pdkl-require 'prelude-latex)
-;;(pdkl-require 'prelude-markdown)
-;;(pdkl-require 'prelude-perl)
-;;(pdkl-require 'prelude-python)
-;;(pdkl-require 'prelude-ruby)
-;;(pdkl-require 'prelude-scheme)
-;;(pdkl-require 'prelude-xml)
+;; exchange one major-mode for another in an alist,
+;; without duplicating the entry or touching the regex
+(defun replace-alist-mode (alist oldmode newmode)
+  (dolist (aitem alist)
+    (if (eq (cdr aitem) oldmode)
+	(setcdr aitem newmode))))
 
-(load custom-file)
+
+(defun autoload-mode (name &optional regex file)
+  "Automatically loads a language mode
+when opening a file of the appropriate type.
+
+`name' is the name of the mode.
+E.g. for javascript-mode, `name' would be \"javascript\".
+
+`regex' is the regular expression matching filenames of the appropriate type.
+
+`file' is the name of the file
+from which the mode function should be loaded.
+By default, it's \"`name'-mode.el\"."
+    (let* ((name-mode  (concat name "-mode"))
+           (name-sym   (intern name-mode))
+           (name-regex (concat "\\." name "$")))
+    (autoload name-sym (or file name-mode)
+      (format "Major mode for editing %s." name) t)
+    (add-to-list 'auto-mode-alist (cons (or regex name-regex) name-sym))))
+
+
+;; loadable packages
+(try-require 'package
+  (add-to-list 'package-archives
+    '("melpa" . "http://melpa.milkbox.net/packages/") t)
+  (package-initialize))
+
+;; load the "customize" settings
+(when (file-exists-p custom-file)
+  (pdkl-info"customizer settings: %s" custom-file)
+  (load custom-file))
 
 ;; load the personal settings
-(when (file-exists-p prelude-personal-dir)
-  ;;(mapc 'load (directory-files prelude-personal-dir nil "^[^#].*el$"))
+(when (file-exists-p personal-init-file)
+  (pdkl-info "personal init.el: %s" personal-init-file)
   (load personal-init-file))
 
-(defvar *emacs-init-end-time* (current-time))
-(message ">>> init.el -  START: %s" (current-time-string *emacs-init-start-time*))
-(message ">>> init.el - FINISH: %s" (current-time-string *emacs-init-end-time*))
-(message ">>> init.el - seconds elapsed: %ds"
-         (destructuring-bind (hi lo ms) *emacs-init-end-time*
-           (- (+ hi lo)
-              (+ (first *emacs-init-start-time*)
-                 (second *emacs-init-start-time*)))))
+;; end init / init-time
+(defconst *emacs-init-end-time* (current-time))
+(pdkl-info "init.el -  START: %s" (current-time-string *emacs-init-start-time*))
+(pdkl-info "init.el - FINISH: %s" (current-time-string *emacs-init-end-time*))
+
+;(message ">>> init.el - seconds elapsed: %ds"
+;         (destructuring-bind (hi lo ms) *emacs-init-end-time*
+;           (- (+ hi lo)
+;              (+ (first *emacs-init-start-time*)
+;                 (second *emacs-init-start-time*)))))
+
+(pdkl-info "*** END OF INITI")
+
 ;;; init.el ends here
-(put 'ido-exit-minibuffer 'disabled nil)
-(put 'overwrite-mode 'disabled nil)
-(put 'upcase-region 'disabled nil)
-(put 'downcase-region 'disabled nil)

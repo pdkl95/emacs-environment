@@ -20,3 +20,4 @@ vendor/sauron
 *.elc
 */*.elc
 **/*.elc
+skewer-cache
