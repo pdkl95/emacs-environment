@@ -43,23 +43,25 @@
 ;;(if (eq system-type 'darwin)
 ;;    (push "/usr/local/bin" exec-path))
 
-(defconst emacs-root-dir (file-name-directory load-file-name)
+(defconst emacs-root-dir
+  (file-name-directory load-file-name)
   "Path to the current .emacs.d/")
-(defconst vendor-dir (concat emacs-root-dir "vendor/")
+(defconst vendor-dir
+  (concat emacs-root-dir "vendor/")
   "misc vendor .el files")
-(defconst personal-dir (concat emacs-root-dir "personal/")
+(defconst personal-dir
+  (concat emacs-root-dir "personal/")
   "personal init files")
-(defconst custom-themes-dir (concat emacs-root-dir "themes/")
+(defconst custom-themes-dir
+  (concat emacs-root-dir "themes/")
   "Path to where themes will be loaded")
-(defconst personal-init-file (concat personal-dir "init.el")
+(defconst personal-init-file
+  (concat personal-dir "init.el")
   "File that loads the majority of the personal stuff, after the
 standard emacs, elpa, and vendor tools are loaded.")
-(defconst custom-file (concat personal-dir "custom.el")
+(defconst custom-file
+  (concat personal-dir "custom.el")
   "File where all of the 'customize' settings should be saved.")
-
-(add-to-list 'load-path vendor-dir)
-(add-to-list 'load-path personal-dir)
-(add-to-list 'custom-theme-load-path custom-themes-dir)
 
 (defun fmt-msg (str &rest args)
   (message (apply 'format str args)))
@@ -70,6 +72,11 @@ standard emacs, elpa, and vendor tools are loaded.")
   (fmt-msg (concat ">>> !!! " str) args))
 (defun pdkl-error (str &rest args)
   (fmt-msg (concat ">>> *** " str " ***") args))
+
+(add-to-list 'load-path vendor-dir)
+(add-to-list 'load-path personal-dir)
+
+(add-to-list 'custom-theme-load-path custom-themes-dir)
 
 ;; keep track of what libs are missing
 (setq missing-packages-list '())
