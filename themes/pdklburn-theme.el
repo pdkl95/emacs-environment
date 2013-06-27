@@ -19,6 +19,7 @@
 ;;  created: 2012-01-10
 ;;  updated: 2012-04-23
 ;;  updated: 2012-08-10
+;;  updated: 2013-06-27
 ;;
 
 
@@ -32,18 +33,40 @@
 (custom-theme-set-faces
  'pdklburn
 
+ '(default ((t (:inherit nil :stipple nil :background "#0b0b0b" :foreground "#92b6f4" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 116 :width normal :foundry "unknown" :family "Dina"))))
  '(c-annotation-face ((t (:foreground "steel blue"))))
+ '(cperl-array-face ((t (:foreground "khaki" :box (:line-width 1 :color "#1A063B" :style released-button) :weight normal))))
+ '(cperl-hash-face ((t (:foreground "#F4BD85" :box (:line-width 1 :color "#3E0C07" :style pressed-button) :slant normal :weight normal))))
+ '(cperl-nonoverridable-face ((t (:foreground "light green"))))
  '(css-proprietary-property ((t (:inherit css-property :background "#171005"))))
  '(css-selector ((t (:inherit font-lock-builtin-face))))
  '(cursor ((t (:background "#ADA8F2"))))
- '(default ((t (:inherit nil :stipple nil :background "#0b0b0b" :foreground "#92b6f4" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 116 :width normal :foundry "unknown" :family "Dina"))))
+ '(diff-added ((t (:inherit diff-changed :foreground "SpringGreen2"))))
+ '(diff-changed ((t (:foreground "LightGoldenrod2"))))
+ '(diff-file-header ((t (:background "turquoise4" :weight bold))))
+ '(diff-header ((t (:background "dark slate blue"))))
+ '(diff-refine-change ((t (:background "DeepSkyBlue4"))))
+ '(diff-removed ((t (:inherit diff-changed :foreground "firebrick2"))))
  '(dropdown-list-face ((t (:inherit modeline))))
  '(dropdown-list-selection-face ((t (:inherit modeline-highlight))))
  '(erm-syn-errline ((t (:box nil :strike-through "firebrick1" :underline "red"))))
  '(erm-syn-warnline ((t (:box nil :strike-through "gold" :underline "orange"))))
  '(error ((t (:background "#6b0a1e" :foreground "#ffeefb" :underline "#ff3111" :weight bold))))
  '(escape-glyph ((t (:background "DodgerBlue4" :foreground "#B4B1FF" :box (:line-width 1 :color "light slate blue")))))
- '(fixed-pitch ((t (:family "Terminus"))))
+ '(enh-ruby-op-face ((t (:foreground "#0096C3"))))
+ '(eshell-ls-archive ((t (:foreground "orange red"))))
+ '(eshell-ls-backup ((t (:background "gray13" :foreground "orchid4"))))
+ '(eshell-ls-clutter ((t (:foreground "pink2"))))
+ '(eshell-ls-directory ((t (:foreground "RoyalBlue2"))))
+ '(eshell-ls-executable ((t (:foreground "Green"))))
+ '(eshell-ls-missing ((t (:background "firebrick2" :foreground "black"))))
+ '(eshell-ls-product ((t (:foreground "slate blue"))))
+ '(eshell-ls-special ((t (:background "olive drab" :foreground "khaki1" :underline "dark slate gray"))))
+ '(eshell-ls-symlink ((t (:foreground "Cyan"))))
+ '(eshell-prompt ((t (:foreground "DodgerBlue2"))))
+ '(fg:erc-color-face1 ((t (:foreground "gray50"))))
+ ;;'(fixed-pitch ((t (:family "Terminus"))))
+ '(fixed-pitch ((t (:inherit default))))
  '(flymake-errline ((t (:background "#30160c" :underline "firebrick"))))
  '(flyspell-incorrect ((t (:foreground "OrangeRed" :underline nil :weight bold))))
  '(font-lock-builtin-face ((t (:foreground "light green"))))
@@ -147,6 +170,11 @@
  '(sh-quoted-exec ((t (:foreground "IndianRed1"))))
  '(show-paren-match ((t (:background "dark slate blue" :foreground "light cyan"))))
  '(show-paren-mismatch ((t (:background "blue violet" :foreground "white smoke" :strike-through "red"))))
+ '(sml/col-number ((t (:inherit sml/global :foreground "SlateBlue3"))))
+ '(sml/filename ((t (:inherit sml/global :foreground "#a47bff"))))
+ '(sml/global ((t (:foreground "#a47bff" :box (:line-width 1 :color "#5276b4")))))
+ '(sml/line-number ((t (:inherit sml/global :foreground "#30ccee" :weight normal))))
+ '(sml/modes ((t (:inherit sml/global :foreground "#6c60ff"))))
  '(strokes-char ((t (:background "black"))))
  '(tool-bar ((t (:inherit modeline :background "#131313" :foreground "#a47bff" :box (:line-width -1 :color "#5276b4")))))
  '(tooltip ((t (:inherit modeline :background "#131313" :foreground "#a47bff"))))
